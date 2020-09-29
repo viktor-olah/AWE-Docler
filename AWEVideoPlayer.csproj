@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{74949D25-9C68-4840-9A3F-1A266B6624F7}</ProjectGuid>
+    <ProjectGuid>{308F0B9D-8FB3-4C0D-9C5B-D743ECD55AF9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>aweAPI</RootNamespace>
-    <AssemblyName>aweAPI</AssemblyName>
+    <RootNamespace>AWEVideoPlayer</RootNamespace>
+    <AssemblyName>AWEVideoPlayer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -62,15 +62,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Awe.cs" />
-    <Compile Include="ViewModel\APIHelper\Api.cs" />
-    <Compile Include="ViewModel\AWEVM.cs" />
-    <Compile Include="ViewModel\Commands\SearchCommand.cs" />
     <Compile Include="View\AWEPlayer.xaml.cs">
       <DependentUpon>AWEPlayer.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModel\APIHELPER\Api.cs" />
+    <Compile Include="ViewModel\AWEVM.cs" />
+    <Compile Include="Model\AWE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,6 +102,5 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

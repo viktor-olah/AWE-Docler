@@ -1,68 +1,101 @@
-﻿using aweAPI.Model;
-using aweAPI.ViewModel.APIHelper;
-using aweAPI.ViewModel.Commands;
+﻿using AWEVideoPlayer.Model;
+using AWEVideoPlayer.ModelView.APIHELPER;
+using AWEVideoPlayer.View;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace aweAPI.ViewModel
+namespace AWEVideoPlayer.ModelView
 {
-    public class AWEVM : INotifyPropertyChanged
+    public class AWEVM
     {
+        static int currentNumber = 0;
 
-        private string query;
+        public string Title { get => Titels(); }
+        public string ProfilImage { get => onepic(); }
+        public string Prewpic { get => oneprewpic(); }
+        public int MovieDuration { get => Duration(); }
+        public string tUrl { get => targeturl(); }
+      
 
-        public string Query
+
+   
+
+        public static string onepic()
         {
-            get => query;
-            set
+
+            List<string> pics = new List<string>();
+            foreach (var item in Api.loadedData.data.videos)
             {
-                query = value;
-                OnpropertyChanged("Query");
+                pics.Add(@"http:" + item.profileImage);
             }
-        }
 
-        private Video video;
-        public Video Video
+            string a = pics.ElementAt(currentNumber);
+
+
+            return a;
+        }
+        public string oneprewpic()
         {
-            get => video;
-            set
+
+            List<string> pics = new List<string>(0);
+            foreach (var item in Api.loadedData.data.videos)
             {
-                video = value;
-                OnpropertyChanged("Video");
+
+                foreach (string item2 in item.previewImages)
+                {
+                    pics.Add(@"http:" + item2);
+                    break;
+                }
             }
+
+            string a = pics.ElementAt(currentNumber);
+            return a;
         }
-
-        public ObservableCollection<Video> Videos { get; set; }
-
-        public SearchCommand SearchCommand { get; set; }
-
-        public AWEVM()
+        public string Titels()
         {
-            SearchCommand = new SearchCommand(this);
-            Videos = new ObservableCollection<Video>();
-        }
-
-        public async void MakeQuery()
-        {
-            var videos = await Api.GetVideos(Query);
-            Videos.Clear();
-
-            foreach (var item in videos)
+            List<string> titels = new List<string>();
+            foreach (var item in Api.loadedData.data.videos)
             {
-                Videos.Add(item);
+                titels.Add(item.title);
             }
+            string a = titels.ElementAt(currentNumber);
+            return a;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnpropertyChanged(string propertyName)
+        public int Duration()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            List<int> duration = new List<int>();
+            foreach (var item in Api.loadedData.data.videos)
+            {
+                duration.Add(item.duration);
+            }
+            int a = duration.ElementAt(currentNumber);
+
+            return a;
         }
+        public string ids()
+        {
+            List<string> ids = new List<string>();
+            foreach (var item in Api.loadedData.data.videos)
+            {
+                ids.Add(item.id);
+            }
+            string a = ids.ElementAt(currentNumber);
+            return a;
+        }
+        public string targeturl()
+        {
+            List<string> urls = new List<string>();
+            foreach (var item in Api.loadedData.data.videos)
+            {
+                urls.Add($"http:" + item.targetUrl);
+            }
+            string a = urls.ElementAt(currentNumber);
+            currentNumber++;
+            return a;
+        }
+
     }
 }

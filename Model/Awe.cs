@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace aweAPI.Model
+namespace AWEVideoPlayer.Model
 {
     public class Video
     {
@@ -22,7 +22,7 @@ namespace aweAPI.Model
         public string uploader { get; set; }
         public string uploaderLink { get; set; }
     }
-    
+
     public class Pagination
     {
         public int total { get; set; }
@@ -38,11 +38,12 @@ namespace aweAPI.Model
         public Pagination pagination { get; set; }
     }
 
-    public class Awe
+    public class AWE
     {
         public bool success { get; set; }
         public string status { get; set; }
         public Data data { get; set; }
     }
-    
+
+
 }
