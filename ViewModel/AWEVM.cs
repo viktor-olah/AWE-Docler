@@ -1,17 +1,85 @@
 ﻿using AWEVideoPlayer.Model;
 using AWEVideoPlayer.ModelView.APIHELPER;
 using AWEVideoPlayer.View;
+using AWEVideoPlayer.ViewModel.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AWEVideoPlayer.ModelView
 {
-    public class AWEVM
+    public class AWEVM : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        private string titelsearch;
+
+        public string Titelsearch
+        {
+            get { return titelsearch; }
+            set
+            {
+                titelsearch = value;
+                OnPropertyChanged("Titelsearch");
+            }
+        }
+        private string selectedTitle;
+        public string SelectedTitle
+        {
+            get { return selectedTitle; }
+            set
+            {
+                selectedTitle = value;
+                OnPropertyChanged("SelectedTitle");
+                GetSelectedTitle();
+
+            }
+        }
+
+
+        private string currentTitle;
+
+        public string Currenttitle
+        {
+            get { return currentTitle; }
+            set
+            {
+                currentTitle = value;
+                OnPropertyChanged("CurrentTitle");
+            }
+        }
+        private void GetSelectedTitle()
+        {
+            titelsearch = string.Empty;
+            Videofilms.Clear();
+            Currenttitle = selectedTitle;
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public AWEVM()
+        {
+            Videofilms = new ObservableCollection<Video>();
+            SearchCommand = new SearchCommand(this);
+        }
+
+
         static int currentNumber = 0;
+
+        public SearchCommand SearchCommand { get; set; }
+      
+
+        public ObservableCollection<Video> Videofilms { get; set; }
+
+    
 
         public string Title { get => Titels(); }
         public string ProfilImage { get => onepic(); }
@@ -20,7 +88,19 @@ namespace AWEVideoPlayer.ModelView
         public string tUrl { get => targeturl(); }
       
 
-
+        public void TitelSearch(string titelname)
+        {
+      
+            foreach (var item in Api.loadedData.data.videos)
+            {
+                if (item.title.Contains(titelname.Trim().ToLower()))
+                {
+                    Videofilms.Clear();
+                    Videofilms.Add(item);
+                }
+            }
+            
+        }
    
 
         public static string onepic()

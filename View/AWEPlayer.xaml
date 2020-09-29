@@ -14,7 +14,7 @@
 
     <Grid DataContext="{StaticResource vm}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="130" />
+            <RowDefinition Height="200" />
             <RowDefinition Height="*" />
 
         </Grid.RowDefinitions>
@@ -477,12 +477,27 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,129,0,0" VerticalAlignment="Top" Width="1280"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,199,0,0" VerticalAlignment="Top" Width="1280"/>
         <!--#region Searching block-->
         <Label Content="Search for a video:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="40,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="225" />
-        <Button Content="Search" HorizontalAlignment="Left" Margin="245,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox Text="{Binding Titelsearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 HorizontalAlignment="Left" Height="23" Margin="40,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" />
+        <Button Content="Search" 
+                        Command="{Binding SearchCommand}"
+                    CommandParameter="{Binding Titelsearch}"
+                HorizontalAlignment="Left" Margin="245,85,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Click="Button_Click" Content="More Videos" HorizontalAlignment="Left" Margin="1100,100,0,0" VerticalAlignment="Top" Width="75"/>
+        <ListView ItemsSource="{Binding Videofilms}"
+                  SelectedItem="{Binding SelectedTitle}"
+                  HorizontalAlignment="Left"  Margin="40,115,0,0" VerticalAlignment="Top" Width="505">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBox Text="{Binding title}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <!--#endregion-->
     </Grid>
