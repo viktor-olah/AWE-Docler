@@ -53,6 +53,7 @@ namespace AWEVideoPlayer.ModelView
                 OnPropertyChanged("CurrentTitle");
             }
         }
+
         private void GetSelectedTitle()
         {
             titelsearch = string.Empty;
